@@ -13,7 +13,8 @@ def index(request):
 
 
 def CheckURL(request):
-    predictionArray=[]
+    TheSite=[]
+    end=[]
     urlArray=[]
     BASE_DIR = Path(__file__).resolve().parent.parent
     form = siteForm(request.POST)
@@ -27,12 +28,25 @@ def CheckURL(request):
     print(prediction[0])
     prediction=prediction[0]
     if prediction =='good':
-        predictionArray.append(f'The Site {urlArray[0]} is not a Phishing Site')
+        TheSite.append('The Site')
+        end.append('is not a Phishing Site')
     elif prediction == 'bad':
-        predictionArray.append(f'The Site {urlArray[0]} is a Phishing site')
+        TheSite.append('The Site')
+        end.append('is a Phishing Site')
+
     else:
-        predictionArray.append("Error Occured")
-    passPrediction= predictionArray[0]
+        TheSite.append("Error Occured")
+    passPrediction= TheSite[0]
     form = siteForm()
-   
-    return render(request, 'index.html',{'prediction':passPrediction,'form':form})
+    link= urlArray[0]
+    end=end[0]
+    context={
+    'prediction':passPrediction,
+    'form':form,
+    'pred':prediction,
+    'link':link,
+    'end':end
+    }
+    return render(request, 'index.html',context)
+    #The Site {urlArray[0]} is not a Phishing Site'
+    #The Site {urlArray[0]} is a Phishing site'

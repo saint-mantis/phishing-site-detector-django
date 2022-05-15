@@ -57,8 +57,46 @@
     height: 50px;
     width: 700px;
 }
+#pred{
+color: #f5f5f5;
+}
+.predictiondiv{
+    display: flex;
+    flex-direction: row;
+}
+#link{
+    text-decoration: underline;
+}
+.bottom{
+    display:flex;
+    align-items: center;
+    justify-content: center;
 
-    </style>
+}
+.model-accuracy{
+    align-items: center;
+    margin-top: 50px;
+}
+footer{
+    position: absolute;
+    bottom: 0px;
+    width: 100%;
+    height: 100px;
+    background-color: rgb(124, 124, 245);
+   
+}
+.footer-class{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+ 
+}
+.dev{
+    margin-top: 20px;
+    color: white;
+    font-size: 20px;
+}
+</style>
     
 </head>
 <body>
@@ -67,14 +105,21 @@
 
   <div class="form">
 <div class="textHeading">
-    <p class="Title">Phishing Site Detector</p>
+    <p class="Title" id="Title">Phishing Site Detector</p>
+    
 
 </div>
     <form action="checkURL" method="post" id="form" class="w-full max-w-sm">
         {% csrf_token %}
           {{form}}
           <div class="prediction">
-            <p class="test1">{{prediction}}</p>
+          <div class="predictiondiv">
+            <p id="start">{{prediction}}</p>
+            &nbsp;
+            <p id="link">{{link}}</p>
+            &nbsp;
+            <p id="end">{{end}}</p>
+          </div>
         </div>
      <div class="checkbtn">
       <button id="check" class="text-blue-700 hover:text-white border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:border-blue-500 dark:text-blue-500 dark:hover:text-white dark:hover:bg-blue-600 dark:focus:ring-blue-800">Check</button>
@@ -85,9 +130,39 @@
 
     </div>
 </div>
+<p id="pred">{{pred}}</p>
+<div class="bottom">
+<div class="model-accuracy">
+    <p style="color:rgb(87, 87, 148) ;">Model Accuracy:97%</p>
+</div>
+</div>
+
+<footer>
+<div class="footer-class">
+  
+        <p class="dev">Developed by Gokul</p>
+
+
+</div>
+</footer>
 </body>
 <script>
-    const collection = document.getElementsByClassName("test1");
-    console.log(collection)
+
+pred=document.getElementById("pred").innerHTML;
+
+if(pred=="good"){
+   
+    document.getElementById("start").style.color = "green";
+    document.getElementById("link").style.color = "green";
+    document.getElementById("end").style.color = "green";
+
+};
+
+if(pred == "bad"){
+    document.getElementById("start").style.color = "red";
+    document.getElementById("link").style.color = "red";
+    document.getElementById("end").style.color = "red";
+}
+
 </script>
 </html>
